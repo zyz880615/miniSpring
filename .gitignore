@@ -25,3 +25,7 @@
 .idea/shelf/
 .idea/modules.xml
 .idea/vcs.xml
+
+# Target directory
+target/
+out/
