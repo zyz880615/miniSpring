@@ -2,7 +2,9 @@ package com.minis.beans;
 
 public interface BeanFactory {
 
-    Object getBean(String beanId) throws BeansException;
+    Object getBean(String beanName) throws BeansException;
 
-    void registerBeanDefinition(BeanDefinition beanDefinition);
+    void registerBean(String beanName, Object obj);
+
+    Boolean containsBean(String beanName);
 }
