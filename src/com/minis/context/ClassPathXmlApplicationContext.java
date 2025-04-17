@@ -4,8 +4,8 @@ import com.minis.beans.*;
 import com.minis.core.ClassPathXmlResource;
 import com.minis.core.Resource;
 
-public class ClassPathXmlApplicationContext implements BeanFactory {
-    BeanFactory beanFactory;
+public class ClassPathXmlApplicationContext implements BeanFactory, ApplicationEventPublisher {
+    SimpleBeanFactory beanFactory;
 
     //context负责整合容器的启动过程，读外部配置，解析Bean定义，创建BeanFactory
     public ClassPathXmlApplicationContext(String fileName) {
@@ -16,18 +16,33 @@ public class ClassPathXmlApplicationContext implements BeanFactory {
         this.beanFactory = beanFactory;
     }
 
+    @Override
+    public boolean isSingleton(String name) {
+        return false;
+    }
+
+    @Override
+    public boolean isPrototype(String name) {
+        return false;
+    }
+
+    @Override
+    public Class<?> getType(String name) {
+        return null;
+    }
+
+    @Override
+    public void publishEvent(ApplicationEvent event) {
+
+    }
+
     //context再对外提供一个getBean，底下就是调用的BeanFactory对应的方法
     public Object getBean(String beanName) throws BeansException {
         return this.beanFactory.getBean(beanName);
     }
 
     public void registerBeanDefinition(BeanDefinition beanDefinition) {
-        this.beanFactory.registerBean(beanDefinition.getId(), beanDefinition);
-    }
-
-    @Override
-    public void registerBean(String beanName, Object obj) {
-        this.beanFactory.registerBean(beanName, obj);
+        this.beanFactory.registerBeanDefinition(beanDefinition.getId(), beanDefinition);
     }
 
     @Override
