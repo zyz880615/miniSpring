@@ -13,10 +13,21 @@ public class PropertyValue {
 
     private Object value;
 
-    public PropertyValue(String type, String name, Object value) {
+    private Boolean isRef;
+
+    public PropertyValue(String type, String name, Object value, Boolean isRef) {
         this.type = type;
         this.name = name;
         this.value = value;
+        this.isRef = isRef;
+    }
+
+    public Boolean getRef() {
+        return isRef;
+    }
+
+    public void setRef(Boolean ref) {
+        isRef = ref;
     }
 
     public String getType() {
