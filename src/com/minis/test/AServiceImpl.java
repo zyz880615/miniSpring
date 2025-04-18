@@ -16,6 +16,14 @@ public class AServiceImpl implements AService {
         System.out.println(this.name + "," + this.level);
     }
 
+    public BaseService getRef1() {
+        return ref1;
+    }
+
+    public void setRef1(BaseService ref1) {
+        this.ref1 = ref1;
+    }
+
     public void sayHello() {
         System.out.println(this.property1 + "," + this.property2);
     }

@@ -28,7 +28,7 @@ public class PropertyValues {
     }
 
     public void addPropertyValue(String propertyType, String propertyName, Object propertyValue) {
-        addPropertyValue(new PropertyValue(propertyType, propertyName, propertyValue));
+        addPropertyValue(new PropertyValue(propertyType, propertyName, propertyValue, true));
     }
 
     public void removePropertyValue(PropertyValue pv) {
