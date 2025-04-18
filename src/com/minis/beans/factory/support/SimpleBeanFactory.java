@@ -1,4 +1,12 @@
-package com.minis.beans;
+package com.minis.beans.factory.support;
+
+import com.minis.beans.BeanFactory;
+import com.minis.beans.BeansException;
+import com.minis.beans.PropertyValue;
+import com.minis.beans.PropertyValues;
+import com.minis.beans.factory.config.BeanDefinition;
+import com.minis.beans.factory.config.ConstructorArgumentValue;
+import com.minis.beans.factory.config.ConstructorArgumentValues;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -49,7 +57,7 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
         try {
             clz = Class.forName(beanDefinition.getClassName());
             // 处理构造器参数
-            ArgumentValues argumentValues =
+            ConstructorArgumentValues argumentValues =
                     beanDefinition.getConstructorArgumentValues();
             //如果有参数
             if (!argumentValues.isEmpty()) {
@@ -59,7 +67,7 @@ public class SimpleBeanFactory extends DefaultSingletonBeanRegistry implements B
                         Object[argumentValues.getArgumentCount()];
                 //对每一个参数，分数据类型分别处理
                 for (int i = 0; i < argumentValues.getArgumentCount(); i++) {
-                    ArgumentValue argumentValue =
+                    ConstructorArgumentValue argumentValue =
                             argumentValues.getIndexedArgumentValue(i);
                     if ("String".equals(argumentValue.getType()) ||
                             "java.lang.String".equals(argumentValue.getType())) {
