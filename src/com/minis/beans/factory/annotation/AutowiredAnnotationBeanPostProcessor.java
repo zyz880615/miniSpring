@@ -1,6 +1,7 @@
 package com.minis.beans.factory.annotation;
 
 import com.minis.beans.BeansException;
+import com.minis.beans.factory.config.AutowireCapableBeanFactory;
 import com.minis.beans.factory.config.BeanPostProcessor;
 
 import java.lang.reflect.Field;
@@ -16,6 +17,8 @@ public class AutowiredAnnotationBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        Object result = bean;
+
         Class<?> clazz = bean.getClass();
         Field[] fields = clazz.getDeclaredFields();
         if (fields != null) {
@@ -23,14 +26,33 @@ public class AutowiredAnnotationBeanPostProcessor implements BeanPostProcessor {
             for (Field field : fields) {
                 boolean isAutowired = field.isAnnotationPresent(Autowired.class);
                 if (isAutowired) {
+                    //根据属性名查找同名的bean
+                    String fieldName = field.getName();
+                    Object autowiredObj = this.getBeanFactory().getBean(fieldName);
+                    //设置属性值，完成注入
+                    try {
+                        field.setAccessible(true);
+                        field.set(bean, autowiredObj);
+                    } catch (Exception e) {
 
+                    }
                 }
             }
         }
+
+        return result;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         return null;
+    }
+
+    public AutowireCapableBeanFactory getBeanFactory() {
+        return beanFactory;
+    }
+
+    public void setBeanFactory(AutowireCapableBeanFactory beanFactory) {
+        this.beanFactory = beanFactory;
     }
 }
