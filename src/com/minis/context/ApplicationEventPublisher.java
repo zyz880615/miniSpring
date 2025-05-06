@@ -6,7 +6,7 @@ package com.minis.context;
  * @date 2025/4/15 下午5:44
  */
 public interface ApplicationEventPublisher {
-
     void publishEvent(ApplicationEvent event);
 
+    void addApplicationListener(ApplicationListener listener);
 }

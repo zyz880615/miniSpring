@@ -11,7 +11,10 @@ public class ApplicationEvent extends EventObject {
 
     private static final long serialVersionUID = 1L;
 
-    public ApplicationEvent(Object source) {
-        super(source);
+    protected String msg = null;
+
+    public ApplicationEvent(Object arg0) {
+        super(arg0);
+        this.msg = arg0.toString();
     }
 }
